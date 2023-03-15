@@ -10,16 +10,27 @@ import './App.css';
 
 
 function App() {
-  const [block, setBlock] = useState(null);
+  const [blocks, setBlocks] = useState([]);
 
-  async function getBlock() {
+  async function getLatestBlock() {
     const web3 = new Web3("https://mainnet.infura.io/v3/f2fd7294530e481d95eaf9ca92d1017f");
     let block = await web3.eth.getBlock("latest");
-    setBlock(block);
+    return block.number
+  }
+
+  async function getBlock(number) {
+    const web3 = new Web3("https://mainnet.infura.io/v3/f2fd7294530e481d95eaf9ca92d1017f");
+    let block = await web3.eth.getBlock(number);
+    return block;
   }
 
   useEffect(() => {
-    getBlock();
+    getLatestBlock().then(num => {
+      const blockNumbers = Array.from({ length: 10 }, (_, i) => num - i);
+      Promise.all(blockNumbers.map(getBlock)).then(blocks => {
+        setBlocks(blocks);
+      });
+    });
   }, []);
 
   return (
@@ -30,10 +41,9 @@ function App() {
       <MainSearchBar />
       <SubTitle />
 
-      {block && <Block block={block} />}
-      {block && <Block block={block} />}
-
-
+      {blocks.map((block, index) => (
+        <Block key={index} block={block} />
+      ))}
 
     </div>
   );
