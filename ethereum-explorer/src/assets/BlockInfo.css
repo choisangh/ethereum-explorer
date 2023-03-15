@@ -1,15 +1,15 @@
-
-.block-container{
+.block-container {
     padding: 1.5em;
-    width:60%;
-    background-color: rgba(0,0,0,0.3);
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border-radius: 25px;
-    float:left;
+    float: left;
     z-Index: 1;
     margin-top: 5%;
 }
-.block-info{
-    width:100%;
+
+.block-info {
+    width: 100%;
     margin-top: 1%;
 }
