@@ -4,7 +4,7 @@ import logo from '../assets/ethereum.png';
 function Header() {
     return (
         <div className="header">
-            <img src={logo} alt="Logo" style={{ width: '250px' }} />
+           <h3>Ethereum Explorer</h3>
         </div>
     );
 }

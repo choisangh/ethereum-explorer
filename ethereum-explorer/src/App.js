@@ -6,28 +6,17 @@ import Header from './components/Header';
 import MainSearchBar from './components/MainSearchBar';
 import SubTitle from './components/SubTitle';
 import Web3 from 'web3';
+import { getLatestBlockNumber, getBlockInfo } from './services/getBlock';
 import './App.css';
 
 
 function App() {
   const [blocks, setBlocks] = useState([]);
 
-  async function getLatestBlock() {
-    const web3 = new Web3("https://mainnet.infura.io/v3/f2fd7294530e481d95eaf9ca92d1017f");
-    let block = await web3.eth.getBlock("latest");
-    return block.number
-  }
-
-  async function getBlock(number) {
-    const web3 = new Web3("https://mainnet.infura.io/v3/f2fd7294530e481d95eaf9ca92d1017f");
-    let block = await web3.eth.getBlock(number);
-    return block;
-  }
-
   useEffect(() => {
-    getLatestBlock().then(num => {
+    getLatestBlockNumber().then(num => {
       const blockNumbers = Array.from({ length: 10 }, (_, i) => num - i);
-      Promise.all(blockNumbers.map(getBlock)).then(blocks => {
+      Promise.all(blockNumbers.map(getBlockInfo)).then(blocks => {
         setBlocks(blocks);
       });
     });
