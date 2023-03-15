@@ -2,28 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Block from './components/BlockInfo'
 import reportWebVitals from './reportWebVitals';
-import Web3 from 'web3';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-async function getBlock() {
-  const web3 = new Web3("https://mainnet.infura.io/v3/"); 
-  let block = await web3.eth.getBlock("latest");
-  return block
-}
-let block = getBlock();
-console.log(block);
+
 
 
 (async function () {
-  const block = await getBlock();
-  console.log(block);
+
   root.render(
     <React.StrictMode>
       <App />
-      <Block block={block} />
     </React.StrictMode>
   );
 })();
